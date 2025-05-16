@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+.app-title {
+    text-align: center;
+    padding: 40px 0 40px 0;
+}
+
+.app-title h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #09def1;
+    text-shadow: 0 0 10px rgba(9, 222, 241, 0.3);
+    font-weight: 700;
+    font-family: inherit;
+}
+
+.light-mode .app-title h1 {
+    color: #0999a8;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.right-button {
+    display: flex;
+}
+
+.custom-prompt-container {
+    display: flex;
+    justify-content: center;
+    margin: -55px auto 20px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.custom-prompt-input {
+    width: 50%;
+    padding: 12px 20px;
+    font-size: 14px;
+    border: 2px solid #666;
+    border-radius: 25px;
+    background-color: #444;
+    color: white;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.light-mode .custom-prompt-input {
+    background-color: white;
+    color: #333;
+    border-color: #ccc;
+}
+
+.custom-prompt-input:focus {
+    border-color: #09def1;
+    box-shadow: 0 0 8px rgba(9, 222, 241, 0.3);
+}
+
+.mode-toggle {
+    padding: 8px 20px;
+    font-size: 14px;
+    background: #09def1;
+    color: #1f2023;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+}
+
+button.mode-toggle.active {
+    background-color: #09def1;
+    color: #ffffff;
+}
+
+.theme-toggle {
+    padding: 8px 15px;
+    font-size: 14px;
+    background: #09def1;
+    color: #1f2023;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    height: 65vh;
+    margin-top: 20px;
+}
+
+textarea {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #666;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.light-mode textarea {
+    background-color: white;
+    color: #333;
+    border-color: #ccc;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+button:disabled {
+    background: #6c757d;
+}
+
+/* Glow button styles */
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #09def1;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 60px;
+    font-size: 18px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 60px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #09def1;
+    left: 0;
+    top: 0;
+    border-radius: 60px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* Light mode adjustments for glow button */
+.light-mode .glow-on-hover:after {
+    background: #333;
+}
+
+.light-mode .glow-on-hover:active {
+    color: #fff;
+}

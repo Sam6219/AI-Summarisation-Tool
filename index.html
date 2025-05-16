@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Summarizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-title">
+        <h1>AI Summarization Tool</h1>
+    </div>
+    
+    <div class="header">
+        <div class="left-buttons">
+            <button id="businessBtn" class="mode-toggle">Business</button>
+            <button id="technicalBtn" class="mode-toggle">Technical</button>
+        </div>
+        <div class="right-button">
+            <button id="themeToggle" class="theme-toggle">Light Mode</button>
+        </div>
+    </div>
+
+    <!-- Custom prompt is now centered under the heading -->
+    <div class="custom-prompt-container">
+        <input type="text" id="customPrompt" placeholder="Add custom prompt here" class="custom-prompt-input">
+    </div>
+
+    <div class="container">
+        <textarea id="input" placeholder="Enter text to summarize..."></textarea>
+        <textarea id="output" readonly placeholder="Summary will appear here..."></textarea>
+    </div>
+
+    <div class="button-container">
+        <button onclick="summarize()" id="summarizeBtn" class="glow-on-hover">Summarize</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
