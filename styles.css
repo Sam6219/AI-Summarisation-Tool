@@ -82,16 +82,28 @@ body.light-mode {
 .mode-toggle {
     padding: 8px 20px;
     font-size: 14px;
-    background: #09def1;
-    color: #1f2023;
+    background: #444;
+    color: #fff;
     border: none;
     border-radius: 60px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.light-mode .mode-toggle {
+    background: #e0e0e0;
+    color: #333;
 }
 
 button.mode-toggle.active {
     background-color: #09def1;
-    color: #ffffff;
+    color: #1f2023;
+    box-shadow: 0 0 8px rgba(9, 222, 241, 0.5);
+}
+
+.light-mode button.mode-toggle.active {
+    background-color: #09def1;
+    color: #fff;
 }
 
 .theme-toggle {

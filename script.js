@@ -1,59 +1,70 @@
+// Global variable to track the current summarization mode
 let summarizationMode = "normal";
 
-// Theme toggle functionality
-const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', toggleTheme);
-
-// Initialize theme based on current body class
-if (document.body.classList.contains('light-mode')) {
-    themeToggle.textContent = 'Dark Mode';
-} else {
-    themeToggle.textContent = 'Light Mode';
-
+// Wait for the DOM to be fully loaded before initializing
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded");
     
-}
-
-function toggleTheme() {
-    const body = document.body;
-    if (body.classList.contains('light-mode')) {
-        body.classList.remove('light-mode');
-        themeToggle.textContent = 'Light Mode';
-    } else {
-        body.classList.add('light-mode');
-        themeToggle.textContent = 'Dark Mode';
+    // Get references to the buttons
+    const businessBtn = document.getElementById('businessBtn');
+    const technicalBtn = document.getElementById('technicalBtn');
+    const themeToggle = document.getElementById('themeToggle');
+    
+    console.log("Buttons:", businessBtn, technicalBtn, themeToggle);
+    
+    // Set up event listeners
+    if (businessBtn) {
+        businessBtn.addEventListener('click', function() {
+            console.log("Business button clicked");
+            if (summarizationMode === "business") {
+                summarizationMode = "normal";
+                businessBtn.classList.remove('active');
+            } else {
+                summarizationMode = "business";
+                businessBtn.classList.add('active');
+                technicalBtn.classList.remove('active');
+            }
+            console.log("Mode is now:", summarizationMode);
+        });
     }
-}
-
-// Business Mode
-const businessBtn = document.getElementById('businessBtn');
-businessBtn.addEventListener('click', toggleBusinessMode);
-
-function toggleBusinessMode() {
-    // Set to business mode or revert to normal
-    if (summarizationMode === "normal") {
-        summarizationMode = "business";
-        businessBtn.classList.add('active'); // add a visual cue (if you style .active)
-    } else {
-        summarizationMode = "normal";
-        businessBtn.classList.remove('active');
+    
+    if (technicalBtn) {
+        technicalBtn.addEventListener('click', function() {
+            console.log("Technical button clicked");
+            if (summarizationMode === "technical") {
+                summarizationMode = "normal";
+                technicalBtn.classList.remove('active');
+            } else {
+                summarizationMode = "technical";
+                technicalBtn.classList.add('active');
+                businessBtn.classList.remove('active');
+            }
+            console.log("Mode is now:", summarizationMode);
+        });
     }
-}
-
-// Technical Mode
-const technicalBtn = document.getElementById('technicalBtn');
-technicalBtn.addEventListener('click', toggleTechnicalMode);
-
-function toggleTechnicalMode() {
-    // Set to technical mode or revert to normal
-    if (summarizationMode !== "technical") {
-        summarizationMode = "technical";
-        technicalBtn.classList.add('active');
-        businessBtn.classList.remove('active'); // Remove active from other button
-    } else {
-        summarizationMode = "normal";
-        technicalBtn.classList.remove('active');
+    
+    // Theme toggle functionality
+    if (themeToggle) {
+        // Initialize the button text based on current theme
+        if (document.body.classList.contains('light-mode')) {
+            themeToggle.textContent = 'Dark Mode';
+        } else {
+            themeToggle.textContent = 'Light Mode';
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            console.log("Theme toggle clicked");
+            const body = document.body;
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                themeToggle.textContent = 'Light Mode';
+            } else {
+                body.classList.add('light-mode');
+                themeToggle.textContent = 'Dark Mode';
+            }
+        });
     }
-}
+});
 
 async function summarize() {
     const input = document.getElementById('input').value;
@@ -69,6 +80,8 @@ async function summarize() {
     try {
         button.disabled = true;
         button.textContent = 'Summarizing...';
+        
+        console.log("Current mode:", summarizationMode);
 
         // Apply the new prompting structure
         let finalPrompt;
@@ -125,6 +138,8 @@ async function summarize() {
             <|start_header_id|>assistant<|end_header_id|>`;
         }
 
+        console.log("Sending request with mode:", summarizationMode);
+        
         const response = await fetch('http://localhost:8000/generate', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -136,6 +151,7 @@ async function summarize() {
         const data = await response.json();
         output.value = data.response;
     } catch (error) {
+        console.error("Error:", error);
         output.value = 'Error generating summary. Please try again.';
     } finally {
         button.disabled = false;
